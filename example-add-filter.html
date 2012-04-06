@@ -8,15 +8,14 @@
 			<script type="text/javascript">
 			$(document).ready(function(){
 			
-				$('div.dcell').map(function(index,elem){
-					return elem.getElementsByTagName("img")[0];
-				}).css("border","thick solid red");
+				var isResult=$('img').is(function(index){
 				
-				$('div.dcell').map(function(index,elem){
-					return $(elem).children()[1];
-				}).css("border","thick solid blue");
+				return this.getAttribute("src")=="rose.png";
 				
 				});
+				
+				console.log("Result: "+isResult);
+				})
 			</script>
 	</head>
 <body>
