@@ -8,14 +8,11 @@
 			<script type="text/javascript">
 			$(document).ready(function(){
 			
-				var isResult=$('img').is(function(index){
-				
-				return this.getAttribute("src")=="rose.png";
-				
+				$('div.drow').add('div.dcell').find('img').each(function(index,elem){
+				console.log("Element: "+elem.tagName+" "+elem.src);
+				});
 				});
 				
-				console.log("Result: "+isResult);
-				})
 			</script>
 	</head>
 <body>
@@ -25,7 +22,7 @@
 					<div class="dtable">	
 						<div id="row1" class="drow">
 							<div class="dcell">
-								<img src="Astor.png"/><label for="Astor">Astor:</label>
+								<img src="astor.png"/><label for="Astor">Astor:</label>
 								<input name="Astor" value="0" required>
 							</div>
 							<div class="dcell">
