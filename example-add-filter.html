@@ -8,11 +8,14 @@
 			<script type="text/javascript">
 			$(document).ready(function(){
 			
-				$('div.drow').add('div.dcell').find('img').each(function(index,elem){
-				console.log("Element: "+elem.tagName+" "+elem.src);
-				});
+				$('div.dcell').parent().each(function(index,elem){
+					console.log("Element: "+elem.tagName+" "+elem.id);
 				});
 				
+				$('div.dcell').parent('#row1').each(function(index,elem){
+					console.log("Filtered element: "+elem.tagName+" "+elem.id);
+				});
+				});
 			</script>
 	</head>
 <body>
