@@ -7,15 +7,13 @@
 			
 			<script type="text/javascript">
 			$(document).ready(function(){
-			var newElems=$('<div class="dcell"><img src="lily.png"/></div>');
+			var newElems=$("<div class='dcell'></div>")
+			.append("<img src='lily.png'/>")
+			.append("<label for='lily'>Lily:</label>")
+			.append("<input name='lily' value='0' required/>");
+			newElems.css("border","thick solid red")
 			
-			newElems.each(function(index,elem){
-			console.log("New Element: "+elem.tagName+" "+elem.className);
-			});
-			
-			newElems.children().each(function(index,elem){
-			console.log("Child: "+elem.tagName+" "+elem.src);
-			});
+			$('#row1').append(newElems);
 			});
 			</script>
 	</head>
