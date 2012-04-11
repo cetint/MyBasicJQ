@@ -7,15 +7,16 @@
 			
 			<script type="text/javascript">
 			$(document).ready(function(){
+			var newElems=$('<div class="dcell"><img src="lily.png"/></div>');
 			
-				$('div.dcell').parent().each(function(index,elem){
-					console.log("Element: "+elem.tagName+" "+elem.id);
-				});
-				
-				$('div.dcell').parent('#row1').each(function(index,elem){
-					console.log("Filtered element: "+elem.tagName+" "+elem.id);
-				});
-				});
+			newElems.each(function(index,elem){
+			console.log("New Element: "+elem.tagName+" "+elem.className);
+			});
+			
+			newElems.children().each(function(index,elem){
+			console.log("Child: "+elem.tagName+" "+elem.src);
+			});
+			});
 			</script>
 	</head>
 <body>
