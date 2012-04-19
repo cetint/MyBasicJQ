@@ -11,12 +11,19 @@
 			<script type="text/javascript">
 			$(document).ready(function(){
 			
-				$("<button>Set Values</button>").appendTo("#buttonDiv").click(setValues);
-					function setValues(e){
-					$('input').val(100);
-					e.preventDefault();
-					}
+				$('img').bind("mouseenter",handleMouseEnter)
+					.bind("mouseout",handleMouseOut);
+					
+				function handleMouseEnter(e){
+				$(this).css({"border":"thick solid red","opacity":"0.5"
 					});
+					};
+				
+				function handleMouseOut(e){
+				$(this).css({"border":"", "opacity":""});
+				}
+				});
+				
 						
 			</script>
 	</head>
@@ -27,17 +34,17 @@
 					<div class="dtable">
 						
 						<div id="row1" class="drow">
-							<div class="dcell">
+							<div class="dcell" data-product="astor">
 								<img src="astor.png"/>
 								<label for="astor">Astor:</label>
 								<input name="astor" value="0" required>
 							</div>
-							<div class="dcell">
+							<div class="dcell" data-product="daffodil">
 								<img src="daffodil.png"/>
 								<label for="daffodil">Daffodil:</label>
 								<input name="daffodil" value="0" required>
 							</div>
-							<div class="dcell">
+							<div class="dcell" data-product="rose">
 								<img src="rose.png"/>
 								<label for="rose">Rose:</label>
 								<input name="rose" value="0" required>
