@@ -11,14 +11,12 @@
 			<script type="text/javascript">
 			$(document).ready(function(){
 			
-				$('label').css("border",function(index,currentValue){
-					if($(this).closest("#row1").length>0){
-						return "thick solid red";
-						}else if(index % 2 == 1){
-						return "thick double blue";
-						}
-						});
-						});
+				$("<button>Set Values</button>").appendTo("#buttonDiv").click(setValues);
+					function setValues(e){
+					$('input').val(100);
+					e.preventDefault();
+					}
+					});
 						
 			</script>
 	</head>
