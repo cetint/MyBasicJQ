@@ -11,19 +11,15 @@
 			<script type="text/javascript">
 			$(document).ready(function(){
 			
-				$('img').bind("mouseenter",handleMouseEnter)
-					.bind("mouseout",handleMouseOut);
-					
-				function handleMouseEnter(e){
-				$(this).css({"border":"thick solid red","opacity":"0.5"
+				$('img').bind({
+					mouseenter: function(){
+					$(this).css("border", "thick solid blue");
+					},
+					mouseout: function(){
+					$(this).css("border", "");
+					}
 					});
-					};
-				
-				function handleMouseOut(e){
-				$(this).css({"border":"", "opacity":""});
-				}
 				});
-				
 						
 			</script>
 	</head>
