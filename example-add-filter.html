@@ -10,30 +10,13 @@
 			</style>
 			<script type="text/javascript">
 			$(document).ready(function(){
-			
-			var hiddenRow = "#row2";
-			var visibleRow = "#row1";
-			
-			$(hiddenRow).hide();
-			
-			$("<button>Switch</button>").insertAfter("#buttonDiv button").click(function(e){
-			
-				
-					$(visibleRow).hide("slow",function(){
-			
-					$(hiddenRow).hide("slow",function(){
-			
-				var temp = hiddenRow;
-				hiddenRow = visibleRow;
-				visibleRow = temp;
+			$("<button>Toggle</button>").insertAfter("#buttonDiv button").click(function(e){
+					performEffect();
+					e.preventDefault();
 			});
-			});
-			e.preventDefault();
-			});
-			});
-			
-			
-						
+			function performEffect(){
+			$('h1').toggle("slow",performEffect)}
+			});	
 			</script>
 	</head>
 <body>
