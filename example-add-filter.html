@@ -13,30 +13,15 @@
 			</style>
 			<script type="text/javascript">
 			$(document).ready(function(){
-			
-			
-			$('h1').css({"position":"fixed","min-width":"0","z-index":"1"});
-			$('form').css({"position":"fixed","top":"70px","z-index":"2"});
-			
-			var timespan = "slow";
-			cycleEffects();
-			
-			
-			function cycleEffects(){
-			
-				$('h1')
-				.animate({left: "+=200"},timespan)
-				.animate({left: "-=200"},timespan)
-				.queue(function(nextFunction){
-					$('div#oblock').fadeTo(timespan,0.5).fadeTo(timespan,1);
-					nextFunction();
-				})
-				.animate({height: "223",width: "700"},timespan)
-				.animate({height: "30",width: "500"},timespan)
-				.slideUp(timespan)
-				.slideDown(timespan,cycleEffects)
+				var fNames = ["Carnation","Lily","Orchid"];
+				var fRow = $('<div id=row3 class=drow/>').appendTo('div.dtable');
+				var fTemplate = $('<div class=dcell><img/><label/><input/></div>');
+				for (var i=0; i<fNames.length; i++){
+					fTemplate.clone().appendTo(fRow).children()
+						.filter('img').attr('src', fNames[i]+".png").end()
+						.filter('label').attr('for',fNames[i]).text(fNames[i]).end()
+						.filter('input').attr({name:fNames[i], value:0, required:"required"})
 				}
-			
 			});	
 			</script>
 	</head>
@@ -47,17 +32,17 @@
 					<div class="dtable">
 						
 						<div id="row1" class="drow">
-							<div class="dcell" data-product="astor">
+							<div class="dcell">
 								<img src="astor.png"/>
 								<label for="astor">Astor:</label>
 								<input name="astor" value="0" required>
 							</div>
-							<div class="dcell" data-product="daffodil">
+							<div class="dcell">
 								<img src="daffodil.png"/>
 								<label for="daffodil">Daffodil:</label>
 								<input name="daffodil" value="0" required>
 							</div>
-							<div class="dcell" data-product="rose">
+							<div class="dcell">
 								<img src="rose.png"/>
 								<label for="rose">Rose:</label>
 								<input name="rose" value="0" required>
