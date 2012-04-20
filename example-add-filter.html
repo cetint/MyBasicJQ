@@ -7,15 +7,23 @@
 			<style type="text/css">
 			img.redBorder{border:thick solid red}
 			img.blueBorder{border:thick solid blue}
+			
+			
+			
 			</style>
 			<script type="text/javascript">
 			$(document).ready(function(){
-			$("<button>Toggle</button>").insertAfter("#buttonDiv button").click(function(e){
-					performEffect();
+			$('form').css({"position":"fixed","top":"70px","z-index":"2"});
+			$('h1').css({"position":"fixed","min-width":"0","z-index":"1"});
+			
+			$("<button>Animate</button>").insertAfter("#buttonDiv button").click(function(e){
+					$('h1').animate({
+						height:$('h1').height()+$('form').height()+10,
+						width:($('form').width())
+					});
 					e.preventDefault();
-			});
-			function performEffect(){
-			$('h1').toggle("slow",performEffect)}
+			
+			});	
 			});	
 			</script>
 	</head>
