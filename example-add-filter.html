@@ -11,12 +11,28 @@
 			<script type="text/javascript">
 			$(document).ready(function(){
 			
-			$("<button>Toggle</button>").appendTo('#buttonDiv').click(function(e){
+			var hiddenRow = "#row2";
+			var visibleRow = "#row1";
 			
-				$('img').toggle("slow","linear");
-				e.preventDefault();
-				});
-				});
+			$(hiddenRow).hide();
+			
+			$("<button>Switch</button>").insertAfter("#buttonDiv button").click(function(e){
+			
+				
+					$(visibleRow).hide("slow",function(){
+			
+					$(hiddenRow).hide("slow",function(){
+			
+				var temp = hiddenRow;
+				hiddenRow = visibleRow;
+				visibleRow = temp;
+			});
+			});
+			e.preventDefault();
+			});
+			});
+			
+			
 						
 			</script>
 	</head>
