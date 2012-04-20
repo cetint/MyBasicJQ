@@ -13,17 +13,30 @@
 			</style>
 			<script type="text/javascript">
 			$(document).ready(function(){
-			$('form').css({"position":"fixed","top":"70px","z-index":"2"});
+			
+			
 			$('h1').css({"position":"fixed","min-width":"0","z-index":"1"});
+			$('form').css({"position":"fixed","top":"70px","z-index":"2"});
 			
-			$("<button>Animate</button>").insertAfter("#buttonDiv button").click(function(e){
-					$('h1').animate({
-						height:$('h1').height()+$('form').height()+10,
-						width:($('form').width())
-					});
-					e.preventDefault();
+			var timespan = "slow";
+			cycleEffects();
 			
-			});	
+			
+			function cycleEffects(){
+			
+				$('h1')
+				.animate({left: "+=200"},timespan)
+				.animate({left: "-=200"},timespan)
+				.queue(function(nextFunction){
+					$('div#oblock').fadeTo(timespan,0.5).fadeTo(timespan,1);
+					nextFunction();
+				})
+				.animate({height: "223",width: "700"},timespan)
+				.animate({height: "30",width: "500"},timespan)
+				.slideUp(timespan)
+				.slideDown(timespan,cycleEffects)
+				}
+			
 			});	
 			</script>
 	</head>
