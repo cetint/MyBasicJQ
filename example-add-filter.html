@@ -11,15 +11,10 @@
 			<script type="text/javascript">
 			$(document).ready(function(){
 			
-			$("<button>Hide</button><button>Show</button>").appendTo('#buttonDiv').click(function(e){
+			$("<button>Toggle</button>").appendTo('#buttonDiv').click(function(e){
 			
-				if($(e.target).text()=="Hide"){
-					$('#row1 div.dcell').slideUp();
-					}
-				else{
-					$('#row1 div.dcell').slideDown();
-					}
-					e.preventDefault();
+				$('img').toggle("slow","linear");
+				e.preventDefault();
 				});
 				});
 						
