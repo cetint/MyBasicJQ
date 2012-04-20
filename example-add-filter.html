@@ -11,14 +11,16 @@
 			<script type="text/javascript">
 			$(document).ready(function(){
 			
-				$('img').bind({
-					mouseenter: function(){
-					$(this).css("border", "thick solid blue");
-					},
-					mouseout: function(){
-					$(this).css("border", "");
+			$("<button>Hide</button><button>Show</button>").appendTo('#buttonDiv').click(function(e){
+			
+				if($(e.target).text()=="Hide"){
+					$('#row1 div.dcell').slideUp();
 					}
-					});
+				else{
+					$('#row1 div.dcell').slideDown();
+					}
+					e.preventDefault();
+				});
 				});
 						
 			</script>
