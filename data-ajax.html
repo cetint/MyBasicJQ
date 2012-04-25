@@ -8,9 +8,6 @@
 			<style type="text/css">
 			img.redBorder{border:thick solid red}
 			img.blueBorder{border:thick solid blue}
-			
-			
-			
 			</style>
 			<script type="text/javascript">
 			$(document).ready(function(){
@@ -19,48 +16,53 @@
 			.insertAfter('h1')
 			.css({color:"red", fontSize:"14pt", textAlign:"center"});
 			
-				var data =[{rowid:"row1",
-				flowers:
+				var originalData =
 						[{name:"Astor", product:"astor", stocklevel:"10",price:2.99},
 						{name:"Daffodil", product:"daffodil", stocklevel:"12",price:1.99},
-						{name:"Rose", product:"rose", stocklevel:"2",price:4.99}]
-						},
-						{rowid:"row2",
-				flowers:
-						[{name:"Peony", product:"peony", stocklevel:"0",price:1.50},
+						{name:"Rose", product:"rose", stocklevel:"2",price:4.99},
+						{name:"Peony", product:"peony", stocklevel:"0",price:1.50},
 						{name:"Primula", product:"primula", stocklevel:"1",price:3.12},
-						{name:"Snowdrop", product:"snowdrop", stocklevel:"15",price:0.99}]
-						}
+						{name:"Snowdrop", product:"snowdrop", stocklevel:"15",price:0.99},
 						];
 			
-				/*var options = {discount:$('#offer').data('discount'),
-				stockDisplay: function (product){
-				return product.stocklevel > 0 ? 1: 0;
+				var itemsPerRow = 3;
+				var slicedData = [];
+				
+				for (var i=0, j=0; i<originalData.length; i+=itemsPerRow,j++){
+				
+				slicedData.push({
+				rowid: "row"+j,
+				flowers: originalData.slice(i, i + itemsPerRow)
+				});
 				}
-				};*/
-			
-			/*$('#flowerTmpl').tmpl(data)
-				.slice(0,3).appendTo('#row1').end().end().slice(3).appendTo('#row2');*/
-			/*var template = $('#flowerTmpl');
-			template.tmpl(data.slice(0,3),options).appendTo('#row1');
-			template.tmpl(data.slice(3),options).appendTo('#row2');*/
+				
 			
 			$('div.drow').remove();
-			$('#rowTmpl').tmpl(data).appendTo('div.dtable');
+			$('#rowTmpl').tmpl(slicedData).appendTo('div.dtable');
 			
 			});	
 			
-			/*function stockDisplay(product){
-				return product.stocklevel > 0 ? 1: 0;
-			}*/
 			</script>
 			
 			<script id="flowerTmpl" type="text/x-jquery-tmpl">
-			<div class="dcell">
+			{{if stocklevel > 5}}
+				<div class="dcell">
 				<img src="${product}.png"/>
 				<label for="${product}">${name}:</label>
-				<input name="${product}" data-price="${price}" data-stock="${stocklevel} value="${stocklevel}" required />
+				<input name="${product}" data-price="${price}" data-stock="${stocklevel}" value="${stocklevel}" required />
 				</div>
+			{{else stocklevel > 0}}
+				<div class="dcell">
+				<img src="${product}.png"/>
+				<label style="color:red" for="${product}">${name}: (Low stock)</label>
+				<input name="${product}" data-price="${price}" data-stock="${stocklevel}" value="${stocklevel}" required />
+				</div>
+			{{else}}
+				<div class="dcell">
+				<img src="${product}.png" style="opacity:0.5"/>
+				<span style="color:grey">${name} (No stock)</span>
+				</div>
+			{{/if}}
 			</script>
 			<script id="rowTmpl" type="text/x-jquery-tmpl">
 			<div id="$(rowid)" class="drow">
