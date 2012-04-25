@@ -8,16 +8,24 @@
 			<style type="text/css">
 			img.redBorder{border:thick solid red}
 			img.blueBorder{border:thick solid blue}
+			.bigview{
+				border: medium solid black;
+				position: relative;
+				top: -10px;
+				left: -10px;
+				background-color:white;
+			}
+			.bigview > img{
+				width: 160px;
+				height: 120px;
+			}
+			
 			</style>
 			<script type="text/javascript">
 			$(document).ready(function(){
 			
-			/*$("<h2>Today's special offer: <span id=offer data-discount='0.50'>"+"50 cents off</span></h2>")
-			.insertAfter('h1')
-			.css({color:"red", fontSize:"14pt", textAlign:"center"});*/
 			
-				var originalData =
-						[{name:"Astor", product:"astor", stocklevel:"10",price:2.99},
+				var data =[{name:"Astor", product:"astor", stocklevel:"10",price:2.99},
 						{name:"Daffodil", product:"daffodil", stocklevel:"12",price:1.99},
 						{name:"Rose", product:"rose", stocklevel:"2",price:4.99},
 						{name:"Peony", product:"peony", stocklevel:"0",price:1.50},
@@ -25,47 +33,44 @@
 						{name:"Snowdrop", product:"snowdrop", stocklevel:"15",price:0.99},
 						];
 			
-				var itemsPerRow = 3;
-				var slicedData = [];
+				var templResult = $('#flowerTmpl').tmpl(data);
+				templResult.slice(0,3).appendTo("#row1");
+				templResult.slice(3).appendTo("#row2");
 				
-				for (var i=0, j=0; i<originalData.length; i+=itemsPerRow,j++){
+				$('div.dcell').mouseenter(handleMouse);
 				
-				slicedData.push({
-				rowid: "row"+j,
-				flowers: originalData.slice(i, i + itemsPerRow)
-				});
+				function handleMouse(e){
+					var tmplItem = $.tmplItem(this);
+					var template = e.type == "mouseenter" ? "#flowerTmplSel": "#flowerTmpl";
+					tmplItem.tmpl = $(template).template();
+					tmplItem.update();
+					$('div.dcell').unbind()
+					.bind(e.type=="mouseenter" ? "mouseleave": "mouseenter", handleMouse);
 				}
-				
-			
-			$('div.drow').remove();
-			$('#flowerTmpl').tmpl(slicedData).appendTo('div.dtable');
 			
 			});	
 			
-			function stockDisplay(product){
-				return product.stocklevel > 0 ? 1:0;
-			}
 			
-			function filterLowStock(flowers){
-				var result = [];
-				for (var i =0; i < flowers.length; i++){
-					if (flowers[i].stocklevel > 2) {result.push(flowers[i])}
-			}
-			return result;
-			}
 			
 			</script>
 			
 			<script id="flowerTmpl" type="text/x-jquery-tmpl">
-			<div id="${rowid}" class="drow">
-			{{each filterLowStock(flowers)}}
 				<div class="dcell">
 				<img src="${product}.png"/>
 				<label for="${product}">${name}:</label>
-				<input name="${product}" value="${stockDisplay($value)}" required />
+				<input name="${product}" value="0" required />
 				</div>
-			{{/each}}
-			</div>
+			</script>
+			
+			<script id="flowerTmplSel" type="text/x-jquery-tmpl">
+				<div class="dcell bigview">
+				<img src="${product}.png"/>
+				{{if $data.stocklevel > 0}}
+						Stock: ${stocklevel} Price:$${price}
+				{{else}}
+						(Out of stock)
+				{{/if}}
+				</div>
 			</script>
 	</head>
 <body>
