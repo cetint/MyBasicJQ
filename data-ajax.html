@@ -25,12 +25,12 @@
 			$(document).ready(function(){
 			
 			
-				var data =[{name:"Astor", product:"astor", stocklevel:"10",price:2.99},
-						{name:"Daffodil", product:"daffodil", stocklevel:"12",price:1.99},
-						{name:"Rose", product:"rose", stocklevel:"2",price:4.99},
-						{name:"Peony", product:"peony", stocklevel:"0",price:1.50},
-						{name:"Primula", product:"primula", stocklevel:"1",price:3.12},
-						{name:"Snowdrop", product:"snowdrop", stocklevel:"15",price:0.99},
+				var data =[{name:"Astor", product:"astor", stocklevel:10, price:2.99},
+						{name:"Daffodil", product:"daffodil", stocklevel:12, price:1.99},
+						{name:"Rose", product:"rose", stocklevel:2, price:4.99},
+						{name:"Peony", product:"peony", stocklevel:0, price:1.50},
+						{name:"Primula", product:"primula", stocklevel:1, price:3.12},
+						{name:"Snowdrop", product:"snowdrop", stocklevel:15, price:0.99},
 						];
 			
 				var templResult = $('#flowerTmpl').tmpl(data);
@@ -47,7 +47,14 @@
 					$('div.dcell').unbind()
 					.bind(e.type=="mouseenter" ? "mouseleave": "mouseenter", handleMouse);
 				}
-			
+				var sum = 0;
+				for (i=0; i < data.length; i++){
+				
+				sum=sum+data[i].price;
+				
+				}
+				console.log("Toplam stok: "+sum);
+				
 			});	
 			
 			
