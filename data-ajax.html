@@ -12,9 +12,9 @@
 			<script type="text/javascript">
 			$(document).ready(function(){
 			
-			$("<h2>Today's special offer: <span id=offer data-discount='0.50'>"+"50 cents off</span></h2>")
+			/*$("<h2>Today's special offer: <span id=offer data-discount='0.50'>"+"50 cents off</span></h2>")
 			.insertAfter('h1')
-			.css({color:"red", fontSize:"14pt", textAlign:"center"});
+			.css({color:"red", fontSize:"14pt", textAlign:"center"});*/
 			
 				var originalData =
 						[{name:"Astor", product:"astor", stocklevel:"10",price:2.99},
@@ -38,38 +38,35 @@
 				
 			
 			$('div.drow').remove();
-			$('#rowTmpl').tmpl(slicedData).appendTo('div.dtable');
+			$('#flowerTmpl').tmpl(slicedData).appendTo('div.dtable');
 			
 			});	
+			
+			function stockDisplay(product){
+				return product.stocklevel > 0 ? 1:0;
+			}
+			
+			function filterLowStock(flowers){
+				var result = [];
+				for (var i =0; i < flowers.length; i++){
+					if (flowers[i].stocklevel > 2) {result.push(flowers[i])}
+			}
+			return result;
+			}
 			
 			</script>
 			
 			<script id="flowerTmpl" type="text/x-jquery-tmpl">
-			{{if stocklevel > 5}}
+			<div id="${rowid}" class="drow">
+			{{each filterLowStock(flowers)}}
 				<div class="dcell">
 				<img src="${product}.png"/>
 				<label for="${product}">${name}:</label>
-				<input name="${product}" data-price="${price}" data-stock="${stocklevel}" value="${stocklevel}" required />
+				<input name="${product}" value="${stockDisplay($value)}" required />
 				</div>
-			{{else stocklevel > 0}}
-				<div class="dcell">
-				<img src="${product}.png"/>
-				<label style="color:red" for="${product}">${name}: (Low stock)</label>
-				<input name="${product}" data-price="${price}" data-stock="${stocklevel}" value="${stocklevel}" required />
-				</div>
-			{{else}}
-				<div class="dcell">
-				<img src="${product}.png" style="opacity:0.5"/>
-				<span style="color:grey">${name} (No stock)</span>
-				</div>
-			{{/if}}
-			</script>
-			<script id="rowTmpl" type="text/x-jquery-tmpl">
-			<div id="$(rowid)" class="drow">
-				{{tmpl($data.flowers) '#flowerTmpl'}}
+			{{/each}}
 			</div>
 			</script>
-			
 	</head>
 <body>
 			<h1>Tamer's Flower Shop</h1>
