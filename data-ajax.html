@@ -37,24 +37,13 @@
 				templResult.slice(0,3).appendTo("#row1");
 				templResult.slice(3).appendTo("#row2");
 				
-				$('div.dcell').mouseenter(handleMouse);
+				data[0].name="Orchid";
+				data[0].product="orchid";
 				
-				function handleMouse(e){
-					var tmplItem = $.tmplItem(this);
-					var template = e.type == "mouseenter" ? "#flowerTmplSel": "#flowerTmpl";
-					tmplItem.tmpl = $(template).template();
-					tmplItem.update();
-					$('div.dcell').unbind()
-					.bind(e.type=="mouseenter" ? "mouseleave": "mouseenter", handleMouse);
-				}
-				var sum = 0;
-				for (i=0; i < data.length; i++){
-				
-				sum=sum+data[i].price;
-				
-				}
-				console.log("Toplam stok: "+sum);
-				
+				$('<button>Modify Data</button>').prependTo("#buttonDiv").click(function(e){
+				var item = $.tmplItem($('div.dcell').first()).update();
+				e.preventDefault();
+				});
 			});	
 			
 			
@@ -69,16 +58,7 @@
 				</div>
 			</script>
 			
-			<script id="flowerTmplSel" type="text/x-jquery-tmpl">
-				<div class="dcell bigview">
-				<img src="${product}.png"/>
-				{{if $data.stocklevel > 0}}
-						Stock: ${stocklevel} Price:$${price}
-				{{else}}
-						(Out of stock)
-				{{/if}}
-				</div>
-			</script>
+			
 	</head>
 <body>
 			<h1>Tamer's Flower Shop</h1>
