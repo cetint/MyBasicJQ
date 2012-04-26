@@ -37,13 +37,26 @@
 				templResult.slice(0,3).appendTo("#row1");
 				templResult.slice(3).appendTo("#row2");
 				
-				data[0].name="Orchid";
-				data[0].product="orchid";
+				$('input').focus(handleFormFocus).blur(handleFormFocus);
 				
-				$('<button>Modify Data</button>').prependTo("#buttonDiv").click(function(e){
-				var item = $.tmplItem($('div.dcell').first()).update();
-				e.preventDefault();
-				});
+				function handleFormFocus(e){
+					var borderVal = e.type == "focus" ? "medium solid green" : "";
+					$(this).css("border",borderVal);
+				}
+				
+				var total = $('#buttonDiv')
+					.prepend("<div>Total Items: <span id=total>0</span></div>")
+					.css({clear:"both", padding:"5px"});
+				$('<div id=bbox />').appendTo("body").append(total).css("clear: left");
+				
+				$('input').change(function(e){
+				
+					var total=0;
+					$('input').each(function(index,elem){
+						total += Number($(elem).val());
+					});
+					$('#total').text(total);
+					});
 			});	
 			
 			
@@ -62,7 +75,7 @@
 	</head>
 <body>
 			<h1>Tamer's Flower Shop</h1>
-			<form method="post" action="http://node.jacquisflowershop.com/order">
+			<form method="post">
 				<div id="oblock">
 					<div class="dtable">
 						<div id="row1" class="drow"></div>
