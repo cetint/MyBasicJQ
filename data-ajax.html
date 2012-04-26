@@ -4,28 +4,17 @@
 			
 			<script src="jquery-1.7.2.js" type="text/javascript"></script>
 			<script src="jquery.tmpl.js" type="text/javascript"></script>
+			<script src="jquery.validate.js" type="text/javascript"></script>
 			<link rel="stylesheet" type="text/css" href="main.css" />
 			<style type="text/css">
-			img.redBorder{border:thick solid red}
-			img.blueBorder{border:thick solid blue}
-			.bigview{
-				border: medium solid black;
-				position: relative;
-				top: -10px;
-				left: -10px;
-				background-color:white;
-			}
-			.bigview > img{
-				width: 160px;
-				height: 120px;
-			}
-			
+			div.ErrorMsg{color:red}
+				.invalidElem{border:medium solid green}			
 			</style>
 			<script type="text/javascript">
 			$(document).ready(function(){
 			
 			
-				var data =[{name:"Astor", product:"astor", stocklevel:10, price:2.99},
+			        var data =[{name:"Astor", product:"astor", stocklevel:10, price:2.99},
 						{name:"Daffodil", product:"daffodil", stocklevel:12, price:1.99},
 						{name:"Rose", product:"rose", stocklevel:2, price:4.99},
 						{name:"Peony", product:"peony", stocklevel:0, price:1.50},
@@ -33,28 +22,34 @@
 						{name:"Snowdrop", product:"snowdrop", stocklevel:15, price:0.99},
 						];
 			
-				var templResult = $('#flowerTmpl').tmpl(data);
-				templResult.slice(0,3).appendTo("#row1");
-				templResult.slice(3).appendTo("#row2");
+					var templResult = $('#flowerTmpl').tmpl(data);
+					templResult.slice(0,3).appendTo("#row1");
+					templResult.slice(3).appendTo("#row2");
 				
-				$('form').submit(function(e){
-					if ($('input').val()==0){
-					e.preventDefault();
-				}
-					});
-					$('<button>DOM API</button>').appendTo('#buttonDiv').click(function(e){
-						document.getElementsByTagName("form")[0].submit();
-						e.preventDefault();
-					});
-					$('<button>jQuery Method</button>').appendTo('#buttonDiv').click(function(e){
-						$('form').submit();
-						e.preventDefault();
-					});
-					
-			});	
+						$('form').validate({
+							highlight: function(element,errorClass){
+								$(element).add($(element).parent()).addClass("invalidElem");
+							},
+							unhighlight: function(element,errorClass){
+								$(element).add($(element).parent()).removeClass("invalidElem");
+							},
+							errorElement: "div",
+							errorClass: "errorMsg"
+						});
+						$.validator.addClassRules({
+							flowerValidation:{
+							min:0
+							}
+						})
+						
+						$('input').addClass("flowerValidation").change(function(e){
+							$('form').validate().element($(e.target));
+							
+						});
+						});
 			
 			
-			
+			2
 			</script>
 			
 			<script id="flowerTmpl" type="text/x-jquery-tmpl">
