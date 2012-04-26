@@ -36,11 +36,18 @@
 							errorElement: "div",
 							errorClass: "errorMsg"
 						});
-						$.validator.addClassRules({
-							flowerValidation:{
-							min:0
+						$('input').each(function(index,elem){
+							var rules = {
+								required: true,
+								min:0,
+								max: data[index].stocklevel,
+								digits: true
 							}
-						})
+							if (Number(data[index].price) > 3.00){
+								rules.max--;
+							}
+							$(elem).rules("add",rules);
+							});		
 						
 						$('input').addClass("flowerValidation").change(function(e){
 							$('form').validate().element($(e.target));
