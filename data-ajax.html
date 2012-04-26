@@ -25,6 +25,8 @@
 					var templResult = $('#flowerTmpl').tmpl(data);
 					templResult.slice(0,3).appendTo("#row1");
 					templResult.slice(3).appendTo("#row2");
+					
+					
 				
 						$('form').validate({
 							highlight: function(element,errorClass){
@@ -34,23 +36,20 @@
 								$(element).add($(element).parent()).removeClass("invalidElem");
 							},
 							errorElement: "div",
-							errorClass: "errorMsg"
+							errorClass: "errorMsg",
+							
 						});
 						$('input').each(function(index,elem){
-							var rules = {
-								required: true,
-								min:0,
-								max: data[index].stocklevel,
-								digits: true
+						$(elem).rules("add", {
+							min:10,
+							max:20,
+							messages: {
+										max: "You only have "+data[index].stocklevel+" in stock"
 							}
-							if (Number(data[index].price) > 3.00){
-								rules.max--;
-							}
-							$(elem).rules("add",rules);
-							});		
-						
-						$('input').addClass("flowerValidation").change(function(e){
+						})
+						}).change(function(e){
 							$('form').validate().element($(e.target));
+						
 							
 						});
 						});
@@ -63,7 +62,7 @@
 				<div class="dcell">
 				<img src="${product}.png"/>
 				<label for="${product}">${name}:</label>
-				<input name="${product}" value="0" required />
+				<input name="${product}" value="0" required min="0" max="${stocklevel}"/>
 				</div>
 			</script>
 			
